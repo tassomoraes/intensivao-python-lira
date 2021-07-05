@@ -11,9 +11,18 @@ import seaborn as sns
 import matplotlib.pyplot as plt # nescessário para usar o seaborn
 
 # mapa de calor para exibir as correlações da tabela
+# em caso de correlações altas entre as características excluisse um das características
 sns.heatmap(tabela.corr(), annot=True, cmap="Wistia") # annot exibe valores nos quadrados; cmap muda as cores
 plt.show()
 
 sns.pairplot(tabela)
 plt.show()
 
+# Passo 3: Inteligência Artificial
+# dividindo dados de traino e dados de teste
+from sklearn.model_selection import train_test_split
+
+y = tabela["Vendas"]
+x = tabela.drop("Vendas", axis=1)   # todas as colunas menos a conluna 'Vendas'
+
+x_treino, x_teste, y_treino, y_teste = train_test_split(x,y, test_size=0.3, radom_state=1)     # 30% da base de dados é para teste; radom_state sempre mesma forma radomica
