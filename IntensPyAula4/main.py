@@ -62,3 +62,4 @@ tabela["Preçi Final"] = tabela["Preço Base Reais"]*tabela["Margem"]
 print(tabela)
 
 # Passo 4: salvar os novos preços dos produtos
+tabela.to_excel("Produtos Novo.xlsx", index=False)
