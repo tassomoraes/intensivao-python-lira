@@ -40,6 +40,25 @@ cotacao_ouro = navegador.find_element_by_xpath('//*[@id="nacional"]').get_attrib
 cotacao_ouro = cotacao_ouro.replace(',','.')
 print(cotacao_ouro)
 
+# fechar navegador
+navegador.quit()
+
 # Passo 2: Importar a lista de produtos
+import pandas as pd
+import openpyxl
+
+tabela = pd.read_excel("Produtos.xlsx")
+print(tabela)
+
 # Passo 3: recalcular o preço dos produtos
+# atualizar a cotação
+tabela.loc[tabela["Moeda"]=="Dólar", "Cotação"] = float(cotacao_dolar)
+tabela.loc[tabela["Moeda"]=="Euro", "Cotação"] = float(cotacao_euro)
+tabela.loc[tabela["Moeda"]=="Ouro", "Cotação"] = float(cotacao_ouro)
+# atualizar preço base reais
+tabela["Preço Base Reais"] = tabela["Preço Base Original"]*tabela["Cotação"]
+# atualizar preço final
+tabela["Preçi Final"] = tabela["Preço Base Reais"]*tabela["Margem"]
+print(tabela)
+
 # Passo 4: salvar os novos preços dos produtos
