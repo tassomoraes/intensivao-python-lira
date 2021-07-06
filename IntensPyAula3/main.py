@@ -48,3 +48,16 @@ previsao_arvoreDeDecisao = modelo_arvoreDeDecisao.predict(x_teste)
 # comparar com os resultados
 print(metrics.r2_score(y_teste,previsao_regressaoLinear))
 print(metrics.r2_score(y_teste,previsao_arvoreDeDecisao))
+
+# Visualização Gráfica das Previsões
+tabela_aux = pd.DataFrame() # criar tabela vazia
+tabela_aux["y_teste"] = y_teste
+tabela_aux["Previsoes ArvoreDecisao"] = previsao_arvoreDeDecisao
+tabela_aux["Previsoes RegressaoLinear"] = previsao_regressaoLinear
+
+plt.figure(figsize=(15,5))  # almentando o tamanho do gráfico
+sns.lineplot(data=tabela_aux)
+plt.show()  # observar a próximadade das linhas
+
+sns.barplot(x=x_treino.columns, y=modelo_arvoreDeDecisao.feature_importances_)
+plt.show()
